@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'agent1' }
+    agent any
 
     environment {
         REGISTRY = 'localhost:5000'
