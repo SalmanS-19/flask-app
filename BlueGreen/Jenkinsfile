@@ -19,7 +19,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}")
+                    def fullImageName = "${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}".toString()
+                    dockerImage = docker.build(fullImageName)
                 }
             }
         }
