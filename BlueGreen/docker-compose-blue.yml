@@ -6,7 +6,7 @@ services:
     volumes:
       - "/application_stack_data/redis:/data"
   
-  web:
+  web_blue:
     image: localhost:5000/flask-redis-app:latest
     container_name: flask_app_blue
     ports:
