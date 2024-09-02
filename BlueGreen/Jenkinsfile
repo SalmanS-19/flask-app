@@ -19,7 +19,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}")
+                    dockerImage = docker.build("${env.REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}")
                 }
             }
         }
@@ -46,19 +46,19 @@ pipeline {
 
         stage('Switch Traffic to Green') {
             steps {
-                // Manual step to access the app via GREEN_PORT (8001)
                 echo "Access the Green environment at http://localhost:${env.GREEN_PORT}"
             }
         }
 
         stage('Test Green Environment') {
             steps {
-                // Here, you can run automated tests or manually validate the deployment.
-                def response = sh(script: "curl -o /dev/null -s -w '%{http_code}' http://localhost:${env.GREEN_PORT}", returnStdout: true).trim()
-                if (response == '200') {
-                    echo "Green environment is up and running with HTTP 200 response."
-                } else {
-                    error "Green environment did not return HTTP 200. Response code: ${response}"
+                script {
+                    def response = sh(script: "curl -o /dev/null -s -w '%{http_code}' http://localhost:${env.GREEN_PORT}", returnStdout: true).trim()
+                    if (response == '200') {
+                        echo "Green environment is up and running with HTTP 200 response."
+                    } else {
+                        error "Green environment did not return HTTP 200. Response code: ${response}"
+                    }
                 }
             }
         }
