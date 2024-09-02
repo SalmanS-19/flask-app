@@ -37,7 +37,7 @@ pipeline {
         stage('Deploy Canary Version') {
             steps {
                 sh '''
-                cd /var/lib/jenkins/workspace/Flask-App
+                cd /var/lib/jenkins/workspace/Flask-App-Canary
                 docker-compose -f docker-compose-canary.yml down
                 docker-compose -f docker-compose-canary.yml pull
                 docker-compose -f docker-compose-canary.yml up -d
