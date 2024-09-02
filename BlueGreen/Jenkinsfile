@@ -37,9 +37,9 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 sh '''
-                cd /var/lib/jenkins/workspace/Flask-App
-                docker-compose -f ./BlueGreen/docker-compose-green.yml pull
-                docker-compose -f ./BlueGreen/docker-compose-green.yml up -d web_green
+                cd /var/lib/jenkins/workspace/Flask-App-Blue-Green
+                docker-compose -f docker-compose-green.yml pull
+                docker-compose -f docker-compose-green.yml up -d web_green
                 '''
             }
         }
